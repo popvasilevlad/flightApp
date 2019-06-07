@@ -1,5 +1,48 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    background-color: #eaeaea;
+}
+.search-wrapper {
+    padding: 50px 0;
+    background-color: rgba(255,255,255,0.5);
+    box-shadow: 0 -1px 7px 0px rgba(0,0,0,0.1);
+    height: 135px;
+    box-sizing: border-box;
+}
+.section-wrapper {
+    padding: 40px 0;
+}
+.airport-card {
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 3px;
+}
+.airport-card:hover {
+    border: 1px solid #40a9ff;
+}
+.card-name {
+    font-size: 16px;
+    font-weight: 700;
+}
+.result-details-wrapper {
+    background-color: #FFF;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 3px;
+    padding: 20px;
+}
+.result-details-header {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 32px;
+}
+.results-details-title {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 10px 0;
+}
+.bookmark-icon {
+    font-size: 32px;
+    color: #40a9ff;
+}
+.bookmark-icon:hover {
+    opacity: 0.8;
 }

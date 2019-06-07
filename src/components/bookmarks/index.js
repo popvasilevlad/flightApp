@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import AirportCard from '../airport-card';
 
 export default class Bookmarks extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { results, handleResultDetailsShow, handleBookmarkClick } = this.props;
         

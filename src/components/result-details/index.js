@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { Row, Col, Button } from 'antd';
+import { Row, Col, Icon } from 'antd';
 
 export default class ResultDetails extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     checkIfBooked() {
         const { bookedItems, data } = this.props;
         return bookedItems.findIndex(elem => elem.iata === data.iata) > -1;
@@ -16,28 +12,32 @@ export default class ResultDetails extends Component {
         const isBooked = this.checkIfBooked();
 
         return(
-            <div>
-                <Row>
-                    <Col span={16}>
+            <div className={'result-details-wrapper'}>
+                <Row className={'results-details-title'}>
+                    <Col span={16} >
                         <h3>{data.name}</h3>
                     </Col>    
-                    <Col span={8} style={{textAlign: 'right'}}>
+                    <Col span={8} style={{textAlign: 'right'}} >
                     {
                         isBooked ? 
-                            <Button onClick={() => handleBookmarkClick(data)} type="dashed" size={'large'}>
-                                Unmark
-                            </Button>
+                            <Icon
+                                type="star"
+                                theme="filled"
+                                className={'bookmark-icon filled'}
+                                onClick={() => handleBookmarkClick(data)}
+                            />
                         :
-                            <Button onClick={() => handleBookmarkClick(data)} type="primary" size={'large'}>
-                                Bookmark
-                            </Button>
-
-
+                            <Icon
+                                type="star"
+                                theme="twoTone"
+                                className={'bookmark-icon'}
+                                onClick={() => handleBookmarkClick(data)}
+                            />
                     }
                     </Col>
                 </Row> 
                 <div>
-                    <br/><br/>
+                    <br/>
                     <div>IATA: {data.iata}</div>    
                     <div>ICAO: {data.icao}</div> 
                     <br/><br/>
@@ -48,10 +48,10 @@ export default class ResultDetails extends Component {
                     <div
                         style={{
                             width: '100%',
-                            backgroundColor: 'green',
-                            height: '150px',
+                            backgroundColor: 'gray',
+                            height: '200px',
                             textAlign: 'center',
-                            padding: '60px',
+                            padding: '110px',
                             color: '#FFF'
                         }}
                     >

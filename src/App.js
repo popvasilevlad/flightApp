@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Row, Col } from 'antd';
 import 'antd/dist/antd.css';
 import SearchResults from './components/search-results';
@@ -25,7 +24,9 @@ class App extends Component {
   }
 
   updateBookedItems() {
-    const bookedItems = Object.keys(cookie.load('bookedItems')).map(key => cookie.load('bookedItems')[key]);
+    const cookieLoad = cookie.load('bookedItems');
+    const bookedItems = cookieLoad ? Object.keys(cookieLoad).map(key => cookie.load('bookedItems')[key]) : '';
+    
     this.setState({
       bookedItems: bookedItems
     })
@@ -40,6 +41,7 @@ class App extends Component {
 
   handleBack = () => {
     const step = this.state.previousStep || --this.state.step;
+
     this.setState({
       step: step,
       openedItem: '',
@@ -65,18 +67,17 @@ class App extends Component {
 
   handleBookmarkClick = item => {
     let bookedItems = cookie.load('bookedItems');
-    if(bookedItems) {
-      if(bookedItems.hasOwnProperty(item.iata)) {
-        delete bookedItems[item.iata];
-      } else {
-        bookedItems[item.iata] = item;
-      }
-    }
-    else {
+    
+    if (!bookedItems) {
       bookedItems = {
         [item.iata]: item
       }
+    } else if (bookedItems.hasOwnProperty(item.iata)) {
+      delete bookedItems[item.iata];
+    } else {
+      bookedItems[item.iata] = item;
     }
+
     cookie.save('bookedItems', bookedItems, { path: '/' });
     this.updateBookedItems();
   }
@@ -107,7 +108,7 @@ class App extends Component {
     return (
       <div className={'main-wrapper'}>
         <Row type="flex" justify="center" className={'search-wrapper'}>
-          <Col xs={20} sm={18} md={8}>
+          <Col xs={20} sm={18} md={10}>
             <NavigatingHeader
               step={this.state.step}
               query={this.state.query}
@@ -120,7 +121,7 @@ class App extends Component {
         </Row>
 
         <Row type="flex" justify="center" className={'section-wrapper'}>
-          <Col xs={20} sm={18} md={8}>
+          <Col xs={20} sm={18} md={10}>
           {
             this.state.step === 1 ? 
               <Bookmarks
