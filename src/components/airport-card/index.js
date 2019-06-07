@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
 import { Card } from 'antd';
+import { connect } from 'react-redux';
+import { toogleBookmark } from '../../js/actions';
 
-export default class AirportCard extends Component {
+const mapStateToProps = state => {
+    return { 
+        openedItem: state.openedItem,
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        toogleBookmark: item => dispatch(toogleBookmark(item))
+    }
+}
+
+class AirportCardClass extends Component {
     render() {
-        const { data } = this.props;
+        const data = this.props.openedItem;
         return(
             <Card
                 className={'airport-card'}
@@ -20,3 +34,7 @@ export default class AirportCard extends Component {
         );
     }
 }
+
+const AirportCard = connect(mapStateToProps, mapDispatchToProps)(AirportCardClass)
+
+export default AirportCard;

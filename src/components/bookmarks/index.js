@@ -1,16 +1,33 @@
 import React, { Component } from 'react';
 import AirportCard from '../airport-card';
+import { connect } from 'react-redux';
+import { showDetails } from '../../js/actions';
 
-export default class Bookmarks extends Component {
+const mapStateToProps = state => {
+    return { 
+        bookedItems: state.bookedItems,
+        step: state.step
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        showDetails: () => dispatch(showDetails())
+    }
+}
+
+class BookmarksClass extends Component {
     render() {
-        const { results, handleResultDetailsShow, handleBookmarkClick } = this.props;
+        if (this.props.step !== 1 ) return false;
+
+        const { bookedItems, handleResultDetailsShow, handleBookmarkClick } = this.props;
         
         return(
             <div>
                 <h1>Bookmarks</h1>
                 {
-                    results && results.length ?
-                        results.map((item, index) => 
+                    bookedItems && bookedItems.length ?
+                        bookedItems.map((item, index) => 
                             <div  key={index} onClick={() => handleResultDetailsShow(item)}>
                                 <AirportCard data={item} handleBookmarkClick={handleBookmarkClick}/>
                             </div>
@@ -23,3 +40,6 @@ export default class Bookmarks extends Component {
         );
     }
 }
+const Bookmarks = connect(mapStateToProps, mapDispatchToProps)(BookmarksClass)
+
+export default Bookmarks;

@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import AirportCard from '../airport-card';
+import { connect } from 'react-redux';
 
-export default class SearchResults extends Component {
+const mapStateToProps = state => {
+    return { 
+        step: state.step,
+        results: state.results,
+        bookedItems: state.bookedItems,
+    }
+};
+
+ class SearchResultsClass extends Component {
     render() {
-        const { results, handleResultDetailsShow, bookedItems } = this.props;
-        
+        const { step, results, handleResultDetailsShow, bookedItems } = this.props;
+        console.log(this.props)
+        if (step !== 2 ) return false;
+
         return(
             <div>
                 {results && results.length ? 
@@ -32,3 +43,7 @@ export default class SearchResults extends Component {
         );
     }
 }
+
+const SearchResults = connect(mapStateToProps)(SearchResultsClass);
+
+export default SearchResults;
