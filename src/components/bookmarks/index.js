@@ -7,16 +7,22 @@ export default class Bookmarks extends Component {
     }
 
     render() {
-        const { results, handleResultDetailsShow } = this.props;
+        const { results, handleResultDetailsShow, handleBookmarkClick } = this.props;
         
         return(
             <div>
                 <h1>Bookmarks</h1>
-                { results.map((item, index) => 
-                    <div  key={index} onClick={() => handleResultDetailsShow(item)}>
-                        <AirportCard data={item}/>
-                    </div>
-                )}
+                {
+                    results && results.length ?
+                        results.map((item, index) => 
+                            <div  key={index} onClick={() => handleResultDetailsShow(item)}>
+                                <AirportCard data={item} handleBookmarkClick={handleBookmarkClick}/>
+                            </div>
+                        )
+                    :
+                    <div>No bookmarked items yet</div>
+
+                }
             </div>
         );
     }

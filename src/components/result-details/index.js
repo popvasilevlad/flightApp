@@ -6,8 +6,14 @@ export default class ResultDetails extends Component {
         super(props);
     }
 
+    checkIfBooked() {
+        const { bookedItems, data } = this.props;
+        return bookedItems.findIndex(elem => elem.iata === data.iata) > -1;
+    }
+
     render() {
-        const { data } = this.props;
+        const { data, handleBookmarkClick } = this.props;
+        const isBooked = this.checkIfBooked();
 
         return(
             <div>
@@ -16,9 +22,18 @@ export default class ResultDetails extends Component {
                         <h3>{data.name}</h3>
                     </Col>    
                     <Col span={8} style={{textAlign: 'right'}}>
-                    <Button type="primary" size={'large'}>
-                        Bookmark
-                    </Button>    
+                    {
+                        isBooked ? 
+                            <Button onClick={() => handleBookmarkClick(data)} type="dashed" size={'large'}>
+                                Unmark
+                            </Button>
+                        :
+                            <Button onClick={() => handleBookmarkClick(data)} type="primary" size={'large'}>
+                                Bookmark
+                            </Button>
+
+
+                    }
                     </Col>
                 </Row> 
                 <div>

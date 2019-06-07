@@ -7,21 +7,27 @@ export default class SearchResults extends Component {
     }
 
     render() {
-        const { results, handleResultDetailsShow } = this.props;
+        const { results, handleResultDetailsShow, bookedItems } = this.props;
         
         return(
             <div>
                 <h1>
                     Results
                 </h1>
-                { results.map((item, index) => 
-                    <div  key={index} onClick={() => handleResultDetailsShow(item)}>
-                        <AirportCard
-                            data={item}
-                           
-                        />
-                    </div>
-                )}
+                {   
+                    results && results.length ? 
+
+                        results.map((item, index) => 
+                        <div  key={index} onClick={() => handleResultDetailsShow(item)}>
+                            <AirportCard
+                                data={item}
+                                bookedItems={bookedItems}
+                            />
+                        </div>
+                    )
+                    :
+                    <div>No results found</div>
+                }
             </div>
         );
     }

@@ -6,6 +6,7 @@ import SearchResults from './components/search-results';
 import Bookmarks from './components/bookmarks';
 import ResultDetails from './components/result-details';
 import NavigatingHeader from './components/navigating-header';
+import cookie from 'react-cookies';
 
 class App extends Component {
   constructor() {
@@ -14,8 +15,20 @@ class App extends Component {
       query: '',
       step: 1,
       previousStep: 1,
-      openedItem: ''
+      openedItem: '',
+      bookedItems: []
     }
+  }
+
+  componentDidMount() {
+    this.updateBookedItems();
+  }
+
+  updateBookedItems() {
+    const bookedItems = Object.keys(cookie.load('bookedItems')).map(key => cookie.load('bookedItems')[key]);
+    this.setState({
+      bookedItems: bookedItems
+    })
   }
   
   handleSearch = q => {
@@ -50,30 +63,47 @@ class App extends Component {
 
   }
 
+  handleBookmarkClick = item => {
+    let bookedItems = cookie.load('bookedItems');
+    if(bookedItems) {
+      if(bookedItems.hasOwnProperty(item.iata)) {
+        delete bookedItems[item.iata];
+      } else {
+        bookedItems[item.iata] = item;
+      }
+    }
+    else {
+      bookedItems = {
+        [item.iata]: item
+      }
+    }
+    cookie.save('bookedItems', bookedItems, { path: '/' });
+    this.updateBookedItems();
+  }
+
   render() {
     const results = [{
       name: 'name name namename name name name name name name',
-      iata: 'IATA',
-      icao: 'ICAO',
+      iata: 'IATA1',
+      icao: 'ICAO1',
       countryCode: 'DE',
       city: 'Berlin'
     },
     {
-      name: 'name',
-      iata: 'IATA',
-      icao: 'ICAO',
+      name: 'name2',
+      iata: 'IATA2',
+      icao: 'ICAO2',
       countryCode: 'RO',
       city: 'Bucharest'
     },
     {
-      name: 'name',
-      iata: 'IATA',
-      icao: 'ICAO',
+      name: 'name3',
+      iata: 'IATA3',
+      icao: 'ICAO3',
       countryCode: 'HU',
       city: 'Budapest'
-    }
-  ];
-    
+    }];
+
     return (
       <div className={'main-wrapper'}>
         <Row type="flex" justify="center" className={'search-wrapper'}>
@@ -94,18 +124,23 @@ class App extends Component {
           {
             this.state.step === 1 ? 
               <Bookmarks
-                results={results}
+                results={this.state.bookedItems}
+                bookedItems={this.state.bookedItems}
                 handleResultDetailsShow={item => this.handleResultDetailsShow(item, 1)}
+                handleBookmarkClick={item => this.handleBookmarkClick(item)}
               />
             :
               this.state.step === 2 ? 
                 <SearchResults
                   results={results}
+                  bookedItems={this.state.bookedItems}
                   handleResultDetailsShow={item => this.handleResultDetailsShow(item)}
                 />
               :
               <ResultDetails 
-                data={results[0]}
+                data={this.state.openedItem}
+                handleBookmarkClick={this.handleBookmarkClick}
+                bookedItems={this.state.bookedItems}
               />
           }
           
