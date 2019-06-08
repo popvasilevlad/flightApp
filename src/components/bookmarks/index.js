@@ -4,42 +4,42 @@ import { connect } from 'react-redux';
 import { showDetails } from '../../js/actions';
 
 const mapStateToProps = state => {
-    return { 
-        bookedItems: state.bookedItems,
-        step: state.step
-    }
+  return { 
+    bookmarks: state.bookmarks,
+    step: state.step
+  }
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        showDetails: () => dispatch(showDetails())
-    }
+  return {
+    showDetails: data => dispatch(showDetails(data))
+  }
 }
 
 class BookmarksClass extends Component {
-    render() {
-        if (this.props.step !== 1 ) return false;
+  render() {
+    const { bookmarks, step, showDetails } = this.props;
 
-        const { bookedItems, handleResultDetailsShow, handleBookmarkClick } = this.props;
-        
-        return(
-            <div>
-                <h1>Bookmarks</h1>
-                {
-                    bookedItems && bookedItems.length ?
-                        bookedItems.map((item, index) => 
-                            <div  key={index} onClick={() => handleResultDetailsShow(item)}>
-                                <AirportCard data={item} handleBookmarkClick={handleBookmarkClick}/>
-                            </div>
-                        )
-                    :
-                    <div>No bookmarked items yet</div>
+    if (step !== 1 ) return false;
 
-                }
-            </div>
-        );
-    }
+    return (
+      <div>
+        <h1>Bookmarks</h1>
+        {
+          bookmarks && Object.keys(bookmarks).length ?
+            Object.keys(bookmarks).map((item, index) => 
+              <div  key={bookmarks[item].iata} onClick={() => showDetails({data: bookmarks[item], previousStep: 1})}>
+                <AirportCard data={bookmarks[item]}/>
+              </div>
+            )
+          :
+            <div>No bookmarked items yet</div>
+        }
+      </div>
+    );
+  }
 }
+
 const Bookmarks = connect(mapStateToProps, mapDispatchToProps)(BookmarksClass)
 
 export default Bookmarks;
