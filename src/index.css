@@ -11,6 +11,9 @@ body {
 .section-wrapper {
     padding: 40px 0;
 }
+.ant-input[disabled] {
+    background-color: #FFF;
+}
 .airport-card {
     cursor: pointer;
     border: 1px solid rgba(0,0,0,0.1);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Icon } from 'antd';
 import { connect } from 'react-redux';
-import { toggleBookmark } from '../../js/actions';
+import { toggleBookmark } from '../../actions';
 
 const mapStateToProps = state => {
   return {

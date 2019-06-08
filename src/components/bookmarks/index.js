@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AirportCard from '../airport-card';
 import { connect } from 'react-redux';
-import { showDetails } from '../../js/actions';
+import { showDetails } from '../../actions';
 
 const mapStateToProps = state => {
   return { 

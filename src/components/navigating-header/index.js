@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Input, Icon, Button, Row, Col } from 'antd';
-import { goBack, search } from '../../js/actions';
+import { goBack, search } from '../../actions';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
@@ -34,34 +34,32 @@ class NavigatingHeaderComponent extends Component {
         />
         )
     }
-    else {
-      return (
-        <Row>
-          <Col xs={6} sm={5} md={5}>
-            <Button
-              type="secondary"
-              onClick={goBack}
-              style={{width: 'calc(100% - 10px)', margin: '0 5px'}}
-            >
-              <Icon type="arrow-left" />
-            </Button>
-          </Col>
-          <Col xs={18} sm={19} md={19}>
-            {
-              step === 2 ?
-              <Input
-                value={query}
-                disabled={true}
-              />
-              :
-              <div className={'result-details-header'}>
-                {openedItem.iata}
-              </div>
-            }
-          </Col>
-        </Row>
-        );
-    }
+    return (
+      <Row>
+        <Col xs={6} sm={5} md={5}>
+          <Button
+            type="secondary"
+            onClick={goBack}
+            style={{width: 'calc(100% - 10px)', margin: '0 5px'}}
+          >
+            <Icon type="arrow-left" />
+          </Button>
+        </Col>
+        <Col xs={18} sm={19} md={19}>
+          {
+            step === 2 ?
+            <Input
+              value={query}
+              disabled={true}
+            />
+            :
+            <div className={'result-details-header'}>
+              {openedItem.iata}
+            </div>
+          }
+        </Col>
+      </Row>
+    );
   }
 }
 

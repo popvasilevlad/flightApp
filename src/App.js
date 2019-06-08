@@ -6,7 +6,7 @@ import Bookmarks from './components/bookmarks';
 import ResultDetails from './components/result-details';
 import NavigatingHeader from './components/navigating-header';
 import { connect } from 'react-redux';
-import { updateBookmarks } from './js/actions';
+import { updateBookmarks } from './actions';
 
 const mapDispatchToProps = dispatch => {
     return {

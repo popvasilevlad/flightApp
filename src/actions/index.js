@@ -1,5 +1,5 @@
 import * as ACTIONS from '../constants/action-types';
-import cookie from 'react-cookies';
+import { toggleBookmarkHelper, getSessionBookmarks } from '../utils/helpers'
 
 export function goBack(payload) {
     return {
@@ -23,29 +23,15 @@ export function showDetails(payload) {
 }
 
 export function toggleBookmark(payload) {
-    let bookmarks = cookie.load('bookmarks');
-    
-    if (!bookmarks) {
-        bookmarks = {
-            [payload.iata]: payload
-        }
-    } else if (bookmarks.hasOwnProperty(payload.iata)) {
-        delete bookmarks[payload.iata];
-    } else {
-        bookmarks[payload.iata] = payload;
-    }
-
-    cookie.save('bookmarks', bookmarks, { path: '/' });
-    
     return {
         type: ACTIONS.UPDATE_BOOKMARKS,
-        payload: bookmarks
+        payload: toggleBookmarkHelper(payload)
     }
 }
 
 export function updateBookmarks() {
     return {
         type: ACTIONS.UPDATE_BOOKMARKS,
-        payload: cookie.load('bookmarks') || ''
+        payload: getSessionBookmarks()
     }
 }
