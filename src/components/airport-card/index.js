@@ -15,8 +15,8 @@ export default class AirportCard extends Component {
         >
           {data.name}
         </div>
-        <div>{data.iata}</div>
-        <div>Country: {data.countryCode}</div>
+        <div>{data.code}</div>
+        <div>Country: {data.country}</div>
       </Card>
     );
   }

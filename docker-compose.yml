@@ -1,0 +1,30 @@
+version: '2'
+services:
+web:
+image:
+217233105762.dkr.ecr.eu-central-1.amazonaws.com/pxi/challenge/sandbox:la
+test
+restart: always
+environment:
+- DB_NAME=postgres
+- DB_USER=postgres
+- DB_PASS=postgres
+- DB_SERVICE=db
+- DB_PORT=5432
+- WEB_CONCURRENCY=4
+ports:
+- "5000:5000"
+depends_on:
+- db
+links:
+- db
+db:
+image: postgres
+restart: always
+environment:
+- POSTGRES_PASSWORD=postgres
+- POSTGRES_USER=postgres
+ports:
+- "5432:5432"
+volumes:
+- ./postgres:/var/lib/postgresql

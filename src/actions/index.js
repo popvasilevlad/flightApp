@@ -1,5 +1,9 @@
 import * as ACTIONS from '../constants/action-types';
-import { toggleBookmarkHelper, getSessionBookmarks } from '../utils/helpers'
+import { 
+    toggleBookmarkHelper,
+    getSessionBookmarks,
+    searchAirport
+} from '../utils/helpers'
 
 export function goBack(payload) {
     return {
@@ -11,7 +15,7 @@ export function goBack(payload) {
 export function search(payload) {
     return {
         type: ACTIONS.SEARCH,
-        payload
+        payload: { results: searchAirport(payload), query: payload }
     }
 }
 

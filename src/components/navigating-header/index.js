@@ -54,7 +54,7 @@ class NavigatingHeaderComponent extends Component {
             />
             :
             <div className={'result-details-header'}>
-              {openedItem.iata}
+              {openedItem.code}
             </div>
           }
         </Col>

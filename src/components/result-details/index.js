@@ -21,7 +21,7 @@ class ResultDetailsClass extends Component {
   checkIfBooked() {
     const { bookmarks, data } = this.props;
 
-    return bookmarks.hasOwnProperty(data.iata);
+    return bookmarks.hasOwnProperty(data.code);
   }
 
   render() {
@@ -61,11 +61,11 @@ class ResultDetailsClass extends Component {
         </Row> 
         <div>
           <br/>
-          <div>IATA: {data.iata}</div>    
+          <div>code: {data.code}</div>    
           <div>ICAO: {data.icao}</div> 
           <br/><br/>
           <div>CITY: {data.city}</div>    
-          <div>Country: {data.countryCode}</div>
+          <div>Country: {data.country}</div>
           <br />
           <br />
           <div

@@ -28,7 +28,7 @@ class BookmarksClass extends Component {
         {
           bookmarks && Object.keys(bookmarks).length ?
             Object.keys(bookmarks).map((item, index) => 
-              <div  key={bookmarks[item].iata} onClick={() => showDetails({data: bookmarks[item], previousStep: 1})}>
+              <div  key={bookmarks[item].code} onClick={() => showDetails({data: bookmarks[item], previousStep: 1})}>
                 <AirportCard data={bookmarks[item]}/>
               </div>
             )

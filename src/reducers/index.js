@@ -1,28 +1,5 @@
 import * as ACTIONS from '../constants/action-types'
 
-const mockResults = [{
-        name: 'name name namename name name name name name name',
-        iata: 'IATA1',
-        icao: 'ICAO1',
-        countryCode: 'DE',
-        city: 'Berlin'
-    },
-    {
-        name: 'name2',
-        iata: 'IATA2',
-        icao: 'ICAO2',
-        countryCode: 'RO',
-        city: 'Bucharest'
-    },
-    {
-        name: 'name3',
-        iata: 'IATA3',
-        icao: 'ICAO3',
-        countryCode: 'HU',
-        city: 'Budapest'
-    }
-];
-
 const initialState = {
     query: '',
     step: 1,
@@ -41,8 +18,8 @@ function rootReducer(state = initialState, action) {
     else if (action.type === ACTIONS.SEARCH) {
         return Object.assign({}, state, {
             step: 2,
-            query: action.payload,
-            results: mockResults
+            query: action.payload.query,
+            results: action.payload.results
         });
     }
     else if (action.type === ACTIONS.RESULT_DETAILS_SHOW) {

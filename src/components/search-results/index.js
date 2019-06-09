@@ -34,7 +34,7 @@ class SearchResultsClass extends Component {
         {   
           results && results.length ? 
             results.map((item, index) => 
-              <div key={item.iata} onClick={() => showDetails({data: item})}>
+              <div key={item.code} onClick={() => showDetails({data: item})}>
               <AirportCard
               data={item}
               />

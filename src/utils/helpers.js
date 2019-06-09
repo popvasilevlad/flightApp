@@ -1,16 +1,22 @@
 import cookie from 'react-cookies';
+import _ from 'lodash';
+
+import * as airports from '../constants/airports';
+
+window._ = _;
+window.airports = airports;
 
 export const toggleBookmarkHelper = data => {
     let bookmarks = cookie.load('bookmarks');
     
     if (!bookmarks) {
         bookmarks = {
-            [data.iata]: data
+            [data.code]: data
         }
-    } else if (bookmarks.hasOwnProperty(data.iata)) {
-        delete bookmarks[data.iata];
+    } else if (bookmarks.hasOwnProperty(data.code)) {
+        delete bookmarks[data.code];
     } else {
-        bookmarks[data.iata] = data;
+        bookmarks[data.code] = data;
     }
 
     cookie.save('bookmarks', bookmarks, { path: '/' });
@@ -19,3 +25,12 @@ export const toggleBookmarkHelper = data => {
 };
 
 export const getSessionBookmarks = () => cookie.load('bookmarks') || '';
+
+export const searchAirport = query => {
+    query = query.toUpperCase();
+    
+    return _.filter(airports, item =>  
+        (item.city && item.city.toUpperCase().search(query) > -1) ||
+        (item.code && item.code.toUpperCase().search(query) > -1)
+    );
+}
