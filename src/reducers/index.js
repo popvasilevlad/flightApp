@@ -6,7 +6,8 @@ const initialState = {
     previousStep: '',
     openedItem: '',
     bookmarks: [],
-    results: ''
+    results: '',
+    loading: false
 }
 
 function rootReducer(state = initialState, action) {
@@ -19,7 +20,8 @@ function rootReducer(state = initialState, action) {
         return Object.assign({}, state, {
             step: 2,
             query: action.payload.query,
-            results: action.payload.results
+            results: action.payload.results,
+            loading: false
         });
     }
     else if (action.type === ACTIONS.RESULT_DETAILS_SHOW) {

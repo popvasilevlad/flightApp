@@ -5,13 +5,20 @@ import SearchResults from './components/search-results';
 import Bookmarks from './components/bookmarks';
 import ResultDetails from './components/result-details';
 import NavigatingHeader from './components/navigating-header';
+import LoadingScreen from './components/loading-screen';
 import { connect } from 'react-redux';
 import { updateBookmarks } from './actions';
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateBookmarks: () => dispatch(updateBookmarks())
+      updateBookmarks: () => dispatch(updateBookmarks())
     }
+}
+
+const mapStateToProps = state => {
+  return {
+    loading: state.loading
+  }
 }
 
 class AppClass extends Component {
@@ -20,6 +27,8 @@ class AppClass extends Component {
   }
 
   render() {
+    const { loading } = this.props;
+
     return (
       <div className={'main-wrapper'}>
         <Row type="flex" justify="center" className={'search-wrapper'}>
@@ -31,9 +40,16 @@ class AppClass extends Component {
     
         <Row type="flex" justify="center" className={'section-wrapper'}>
           <Col xs={20} sm={18} md={10}>
-            <Bookmarks />
-            <SearchResults />
-            <ResultDetails />
+            {
+              loading ? 
+                <LoadingScreen />
+              :
+                <React.Fragment>
+                  <Bookmarks />
+                  <SearchResults />
+                  <ResultDetails />
+                </React.Fragment>
+            }
           </Col>
         </Row>
       </div>
@@ -41,6 +57,6 @@ class AppClass extends Component {
   }
 }
 
-const App = connect('', mapDispatchToProps)(AppClass);
+const App = connect(mapStateToProps, mapDispatchToProps)(AppClass);
 
 export default App;

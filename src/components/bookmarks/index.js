@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AirportCard from '../airport-card';
 import { connect } from 'react-redux';
 import { showDetails } from '../../actions';
+import { Icon } from 'antd';
 
 const mapStateToProps = state => {
   return { 
@@ -24,7 +25,10 @@ class BookmarksClass extends Component {
 
     return (
       <div>
-        <h1>Bookmarks</h1>
+        <div>
+          <Icon type="pushpin" theme="filled" style={{marginRight: '5px'}}/>
+          BOOKMARKS
+        </div>
         {
           bookmarks && Object.keys(bookmarks).length ?
             Object.keys(bookmarks).map((item, index) => 

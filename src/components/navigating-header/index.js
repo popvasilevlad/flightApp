@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Input, Icon, Button, Row, Col } from 'antd';
-import { goBack, search } from '../../actions';
+import { Input, Row, Col } from 'antd';
+import { search } from '../../actions';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
@@ -13,7 +13,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    goBack: () => dispatch(goBack()),
     search: value => dispatch(search(value))
   }
 }
@@ -22,40 +21,35 @@ const mapDispatchToProps = dispatch => {
 class NavigatingHeaderComponent extends Component {
   render() {
     const Search = Input.Search; 
-    const { step, openedItem, query, goBack } = this.props;
+    const { step, openedItem, query, search } = this.props;
 
-    if (step === 1) { 
-      const { search } = this.props;
-
-      return (
-        <Search
-          placeholder="Search"
-          onSearch={value => search(value)}
-        />
-        )
-    }
     return (
       <Row>
         <Col xs={6} sm={5} md={5}>
-          <Button
-            type="secondary"
-            onClick={goBack}
-            style={{width: 'calc(100% - 10px)', margin: '0 5px'}}
-          >
-            <Icon type="arrow-left" />
-          </Button>
+          <div
+            className={'logo'}>
+              PXI
+          </div>
         </Col>
         <Col xs={18} sm={19} md={19}>
           {
-            step === 2 ?
-            <Input
-              value={query}
-              disabled={true}
-            />
+            step === 1 ?
+              <Search
+                placeholder="Search"
+                onSearch={value => search(value)}
+              />
             :
-            <div className={'result-details-header'}>
-              {openedItem.code}
-            </div>
+              step === 2 ?
+                <Input
+                  value={query}
+                  disabled={true}
+                />
+              :
+              <Input
+                value={openedItem.name}
+                disabled={true}
+              />
+
           }
         </Col>
       </Row>
