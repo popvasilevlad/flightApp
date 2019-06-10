@@ -37,7 +37,7 @@ class BookmarksClass extends Component {
               </div>
             )
           :
-            <div>No bookmarked items yet</div>
+            <div className={'empty-bookmarks-container'}>No bookmarked items yet</div>
         }
       </div>
     );

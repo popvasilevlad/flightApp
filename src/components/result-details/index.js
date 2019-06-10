@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col, Icon } from 'antd';
 import { connect } from 'react-redux';
 import { toggleBookmark, goBack } from '../../actions';
+import { GoogleMap, LoadScript  } from '@react-google-maps/api';
 
 const mapStateToProps = state => {
   return {
@@ -34,7 +35,7 @@ class ResultDetailsClass extends Component {
     if (!data) { 
       return(<div> Error occured :( </div>)
     }
-
+    console.log(data.lat, data.lon)
     return (
       <div>
           <Icon
@@ -84,19 +85,23 @@ class ResultDetailsClass extends Component {
               :
                 null
             }
-          </div>   
-          <div
-            style={{
-              width: '100%',
-              backgroundColor: 'gray',
-              height: '200px',
-              textAlign: 'center',
-              padding: '110px',
-              color: '#FFF'
-              }}
-          >
-            MAP HERE
           </div>
+          <LoadScript
+            id="script-loader"
+            googleMapsApiKey="AIzaSyDyeC2McNPTAskUeuRqVc8OzG8EIPevbfU"
+          >
+            <GoogleMap
+              id={'google-map'}
+              center={{lat: data.lat, lng: data.lon}}
+              zoom={2}
+              onLoad={map => {
+                const bounds = new window.google.maps.LatLngBounds();
+                map.fitBounds(bounds);
+              }}
+            >
+              ...Your map components
+            </GoogleMap>
+          </LoadScript>
         </div>
       </div>
     );

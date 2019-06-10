@@ -30,6 +30,12 @@ body {
     box-shadow: 0 -1px 7px 0px rgba(0,0,0,0.1);
     box-sizing: border-box;
 }
+.empty-bookmarks-container {
+    margin-top: 20px;
+    font-style: italic;
+    opacity: 0.6;
+    text-align: center;
+}
 .section-wrapper {
     position: relative;
     padding: 40px 0;
@@ -88,4 +94,7 @@ body {
 }
 .bookmark-icon:hover {
     opacity: 0.8;
+}
+#google-map {
+    height: 300px;
 }
