@@ -36,7 +36,7 @@ class NavigatingHeaderComponent extends Component {
             step === 1 ?
               <Search
                 placeholder="Search"
-                onSearch={value => search(value)}
+                onSearch={value => value ? search(value) : false}
               />
             :
               step === 2 ?

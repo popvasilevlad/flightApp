@@ -35,7 +35,7 @@ class ResultDetailsClass extends Component {
     if (!data) { 
       return(<div> Error occured :( </div>)
     }
-    console.log(data.lat, data.lon)
+    
     return (
       <div>
           <Icon
