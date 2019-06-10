@@ -1,12 +1,20 @@
 # paxlife
+
 Application made using npx create-react-app
 
-After cloning the repo, run these commands:
+After cloning the repo, run the following command in order to install the dependecies:
 
-npm i
-npm start
+	npm i 
+	
+	or
+	
+	yarn
 
-or
+To launch the application, run:
 
-yarn
-yarn start
+	npm start
+	
+	or
+	
+	yarn start
+	
